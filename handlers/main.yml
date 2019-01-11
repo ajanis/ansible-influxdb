@@ -22,3 +22,17 @@
 - name: pause
   pause:
     seconds: 3
+
+- name: restart unifi_exporter
+  systemd:
+    name: docker-unifi_exporter
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+
+- name: restart ceph_exporter
+  systemd:
+    name: docker-ceph_exporter
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

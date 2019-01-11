@@ -48,3 +48,6 @@
 
 - include: stress.yml
   tags: [influxdb, stress]
+
+- include_tasks: prometheus.yml
+- include_tasks: unifi_exporter.yml

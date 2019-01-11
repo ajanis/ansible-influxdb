@@ -1,0 +1,14 @@
+- name: Add ceph and unifi exporter configs to prometheus.yml
+  blockinfile:
+    path: /etc/prometheus/prometheus.yml
+    block: |
+        - job_name: 'ceph-exporter'
+          static_configs:
+            - targets: ['localhost:9128']
+              labels:
+                alias: ceph-exporter
+        - job_name: 'unifi-exporter'
+          static_configs:
+            - targets: ['localhost:9130']
+              labels:
+                alias: unifi-exporter
