@@ -1,3 +1,14 @@
+- name: install prometheus packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - prometheus
+    - prometheus-alertmanager
+    - prometheus-node-exporter
+    - prometheus-pushgateway
+
 - name: Add ceph and unifi exporter configs to prometheus.yml
   blockinfile:
     path: /etc/prometheus/prometheus.yml
