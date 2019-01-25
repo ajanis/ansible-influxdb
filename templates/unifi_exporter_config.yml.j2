@@ -5,6 +5,6 @@ unifi:
   address: {{ unifi_admin_url }}
   username: {{ unifi_admin_user }}
   password: "{{ unifi_admin_password }}"
-  site: Default
+  site: {{ unifi_admin_site | default('default') }}
   insecure: true
   timeout: 5s
