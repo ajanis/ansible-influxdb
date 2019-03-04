@@ -1,5 +1,0 @@
-- name: Deploy InfluxDB
-  hosts: tick
-  tasks:
-    - import_role:
-        name: influxdb
