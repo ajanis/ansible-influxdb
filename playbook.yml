@@ -1,0 +1,26 @@
+---
+- name: Deploy TICK stack
+  hosts: tick
+  become: True
+  remote_user: root
+  tasks:
+    - import_role:
+        name: common
+    - import_role:
+        name: openldap
+    - import_role:
+        name: ceph-fs
+      when: storage_backend == "cephfs"
+    - import_role:
+        name: nfs
+      when: storage_backend == "nfs"
+    - import_role:
+        name: influxdb
+    - import_role:
+        name: chronograf
+    - import_role:
+        name: kapacitor
+    - import_role:
+        name: telegraf
+    - import_role:
+        name: docker
