@@ -25,7 +25,7 @@
   tags: [influxdb, configure]
 
 - name: Start the InfluxDB service
-  service:
+  systemd:
     name: influxdb
     state: restarted
     enabled: yes
