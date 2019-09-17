@@ -33,12 +33,11 @@
   when: influxdb_start_service
   tags: [influxdb, configure]
 
-- name: Wait for InfluxDB to come up
+- name: Verify InfluxDB HTTP service is listening
   wait_for:
     host: "{{ influxdb_bind_hostname | default(\"localhost\", true) }}"
     port: "{{ influxdb_http_port }}"
-    delay: 5
-    timeout: 30
+    delay: 30
   when: influxdb_started.changed and influxdb_start_service
   ignore_errors: yes
   register: influxdb_start_attempt
