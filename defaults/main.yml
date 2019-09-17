@@ -193,3 +193,37 @@ influxdb_hh_max_age: 168h
 influxdb_hh_retry_rate_limit: 0
 influxdb_hh_retry_interval: 1s
 influxdb_hh_purge_interval: 1h
+
+
+
+
+
+prometheus_config_dir: "/etc/prometheus"
+prometheus_metrics_path: "/metrics"
+prometheus_global:
+  scrape_interval: 60s
+  scrape_timeout: 15s
+  evaluation_interval: 15s
+
+prometheus_external_labels:
+  environment: "{{ ansible_fqdn | default(ansible_host) | default(inventory_hostname) }}"
+  monitor: 'example'
+
+prometheus_alertmanager_config: []
+prometheus_alert_relabel_configs: []
+prometheus_remote_write: []
+prometheus_remote_read: []
+
+
+prometheus_scrape_configs:
+  - job_name: "prometheus"
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: "{{ prometheus_metrics_path }}"
+    static_configs:
+      - targets:
+        - "{{ ansible_fqdn | default(ansible_host) | default('localhost') }}:9090"
+  - job_name: "node"
+    static_configs:
+      - targets:
+        - "{{ ansible_fqdn | default(ansible_host) | default('localhost') }}:9100"
