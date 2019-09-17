@@ -1,13 +1,8 @@
-- name: install prometheus packages
-  apt:
-    name: "{{ item }}"
+---
+- name: 'Prometheus :: Install Packages'
+  package:
+    name: "{{ prometheus_pkgs }}"
     state: present
-    update_cache: yes
-  with_items:
-    - prometheus
-    - prometheus-alertmanager
-    - prometheus-node-exporter
-    - prometheus-pushgateway
 
 - name: Add ceph and unifi exporter configs to prometheus.yml
   blockinfile:
