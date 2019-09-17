@@ -1,6 +1,11 @@
 ---
-- include_tasks: install.yml
-  tags: [influxdb, install]
+- name: include os specific vars
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_os_family }}.yml"
+  tags:
+    - always
 
 - include_tasks: configure.yml
   tags: [influxdb, configure]
