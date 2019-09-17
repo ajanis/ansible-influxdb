@@ -12,7 +12,7 @@
     mode: 0755
     owner: root
     group: root
-
+  notify: restart prometheus
 #- name: Add ceph and unifi exporter configs to prometheus.yml
 #  blockinfile:
 #    path: /etc/prometheus/prometheus.yml
