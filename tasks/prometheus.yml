@@ -4,17 +4,26 @@
     name: "{{ prometheus_pkgs }}"
     state: present
 
-- name: Add ceph and unifi exporter configs to prometheus.yml
-  blockinfile:
-    path: /etc/prometheus/prometheus.yml
-    block: |
-        - job_name: 'ceph-exporter'
-          static_configs:
-            - targets: ['localhost:9128']
-              labels:
-                alias: ceph-exporter
-        - job_name: 'unifi-exporter'
-          static_configs:
-            - targets: ['{{ unifi_admin_host }}:9130']
-              labels:
-                alias: unifi-exporter
+- name: 'Prometheus :: Create templated config'
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ prometheus_config_dir }}/prometheus.yml"
+    backup: yes
+    mode: 0755
+    owner: root
+    group: root
+
+#- name: Add ceph and unifi exporter configs to prometheus.yml
+#  blockinfile:
+#    path: /etc/prometheus/prometheus.yml
+#    block: |
+#        - job_name: 'ceph-exporter'
+#          static_configs:
+#            - targets: ['localhost:9128']
+#              labels:
+#                alias: ceph-exporter
+#        - job_name: 'unifi-exporter'
+#          static_configs:
+#            - targets: ['{{ unifi_admin_host }}:9130']
+#              labels:
+#                alias: unifi-exporter
