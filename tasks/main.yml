@@ -43,15 +43,14 @@
   register: influxdb_start_attempt
   tags: [influxdb, configure]
 
-- name: Run tail on log
-  command: tail /var/log/influxdb/influxd.log
-  register: influxdb_tail_output
+- name: Get InfluxDB journald logs if service does not appear to be up
+  shell: journalctl _SYSTEMD_INVOCATION_ID=`systemctl show -p InvocationID --value influxdb.service`
+  register: influxdb_journal
   when: influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed == True
   tags: [influxdb, configure]
 
-- name: Show log output
-  debug:
-    msg: "{{ influxdb_tail_output.stdout_lines }}"
+- fail:
+    msg: "{{ influxdb_journal.stdout_lines }}"
   when: influxdb_start_attempt.failed is defined and influxdb_start_attempt.failed == True
   tags: [influxdb, configure]
 
