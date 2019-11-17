@@ -1,15 +1,15 @@
 ---
 - name: Install any necessary dependencies [Debian/Ubuntu]
-  apt: 
-    name: "{{ influxdb_dependency_pkgs }}" 
-    state: present 
-    update_cache: yes 
+  apt:
+    name: "{{ influxdb_dependency_pkgs }}"
+    state: present
+    update_cache: yes
     cache_valid_time: 3600
     
 - name: Install any necessary PIP dependencies [Debian/Ubuntu]
-  apt: 
-    name: "{{ python_pkgs }}" 
-    state: present 
+  apt:
+    name: "{{ python_pkgs }}"
+    state: present
     update_cache: yes 
     cache_valid_time: 3600
   when: influxdb_install_python_client
