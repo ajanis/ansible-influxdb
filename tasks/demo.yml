@@ -13,5 +13,6 @@
   command: >
     curl -XPOST http://localhost:8086/write?db={{ influxdb_sample_database_name }}
     --data-binary
-    '{{ influxdb_sample_measurement_name }},host=server_{{ 10 | random }},az=US{{ 5 | random }} value={{ 100 | random }}'" with_sequence: start=1 end=10 
+    '{{ influxdb_sample_measurement_name }},host=server_{{ 10 | random }},az=US{{ 5 | random }} value={{ 100 | random }}'
+  with_sequence: start=1 end=10 
 
