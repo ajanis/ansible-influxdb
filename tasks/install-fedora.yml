@@ -30,7 +30,7 @@
     state: present
   when: influxdb_install_url is defined and influxdb_install_url != None
 
-- name: Capture installed InfluxDB version # noqa 303
+- name: Capture installed InfluxDB version # noqa 303 301
   command: rpm -q influxdb
   register: reg_influxdb_version
 
