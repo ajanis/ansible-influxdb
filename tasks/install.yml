@@ -15,7 +15,7 @@
     version={{ influxdb_python_client_version | default(omit) }}
   when: influxdb_install_python_client
 
-- name: Capture InfluxDB version information
+- name: Capture InfluxDB version information # noqa 301
   command: influxd version
   register: influxdb_runtime_version_raw
 
