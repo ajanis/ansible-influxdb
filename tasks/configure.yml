@@ -5,8 +5,8 @@
     state: directory
 
 - name: Set templatized InfluxDB configuration
-  template: 
-    src: influxdb.conf.j2 
+  template:
+    src: influxdb.conf.j2
     dest: "{{ influxdb_configuration_dir }}/influxdb.conf"
     force: yes
     backup: yes
