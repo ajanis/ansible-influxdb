@@ -1,16 +1,16 @@
 ---
 - name: Install any necessary dependencies [Debian/Ubuntu]
-  apt: 
-    name: "{{ influxdb_dependency_pkgs }}" 
-    state: present 
-    update_cache: yes 
+  apt:
+    name: "{{ influxdb_dependency_pkgs }}"
+    state: present
+    update_cache: yes
     cache_valid_time: 3600
-    
+
 - name: Install any necessary PIP dependencies [Debian/Ubuntu]
-  apt: 
-    name: "{{ python_pkgs }}" 
-    state: present 
-    update_cache: yes 
+  apt:
+    name: "{{ python_pkgs }}"
+    state: present
+    update_cache: yes
     cache_valid_time: 3600
   when: influxdb_install_python_client
 
@@ -26,16 +26,19 @@
     state: present
   when: influxdb_install_url is not defined or influxdb_install_url == None
 
-- name: Install InfluxDB packages [Debian/Ubuntu]
-  apt: 
+- name: Install InfluxDB packages [Debian/Ubuntu] # noqa 403
+  apt:
     name: influxdb
     state: latest
     update_cache: yes
     cache_valid_time: 3600
   when: influxdb_install_url is not defined or influxdb_install_url == None
-  
+
 - name: Download InfluxDB package via URL [Debian/Ubuntu]
-  command: curl -o /tmp/influxdb-ansible-download.deb {{ influxdb_install_url }}
+  get_url:
+    url: '{{ influxdb_install_url }}'
+    dest: /tmp/influxdb-ansible-download.deb
+    mode: '0777'
   when: influxdb_install_url is defined and influxdb_install_url != None
 
 - name: Install downloaded InfluxDB package [Debian/Ubuntu]

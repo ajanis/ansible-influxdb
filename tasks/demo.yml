@@ -4,12 +4,14 @@
   register: db_listing
   changed_when: no
 
-- name: Create demo database
+- name: Create demo database # noqa 301
   command: "{{ influxdb_binary_path }}/influx -execute 'CREATE DATABASE {{ influxdb_sample_database_name }}'"
-  when: db_listing.stdout.find("{{ influxdb_sample_database_name }}") == -1
+  when: db_listing.stdout.find(influxdb_sample_database_name) == -1
 
-- name: Load demo data
-  command: "curl -XPOST http://localhost:8086/write?db={{ influxdb_sample_database_name }} --data-binary '{{ influxdb_sample_measurement_name }},host=server_{{ 10 | random }},az=US{{ 5 | random }} value={{ 100 | random }}'"
+- name: Load demo data # noqa 303 301
+  command: >
+    curl -XPOST http://localhost:8086/write?db={{ influxdb_sample_database_name }}
+    --data-binary
+    '{{ influxdb_sample_measurement_name }},host=server_{{ 10 | random }},az=US{{ 5 | random }} value={{ 100 | random }}'
   with_sequence: start=1 end=10
-  
 

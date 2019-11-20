@@ -1,12 +1,12 @@
 ---
 - name: Install any necessary dependencies [RedHat/Fedora]
-  dnf: 
-    name: "{{ influxdb_dependency_pkgs }}" 
+  dnf:
+    name: "{{ influxdb_dependency_pkgs }}"
     state: present
 
 - name: Install any necessary PIP dependencies [RedHat/Fedora]
-  dnf: 
-    name: "{{ python_pkgs }}"  
+  dnf:
+    name: "{{ python_pkgs }}"
     state: presents
   when: influxdb_install_python_client
 
@@ -19,18 +19,18 @@
   when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Install InfluxDB packages [RHEL/Fedora]
-  dnf: 
+  dnf:
     name: influxdb
     state: present
   when: influxdb_install_url is not defined or influxdb_install_url == None
 
 - name: Install InfluxDB from URL [RHEL/Fedora]
-  dnf: 
+  dnf:
     name: "{{ influxdb_install_url }}"
     state: present
   when: influxdb_install_url is defined and influxdb_install_url != None
 
-- name: Capture installed InfluxDB version
+- name: Capture installed InfluxDB version # noqa 303 301
   command: rpm -q influxdb
   register: reg_influxdb_version
 

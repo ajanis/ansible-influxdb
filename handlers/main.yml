@@ -1,6 +1,6 @@
 ---
 - name: purge metaid
-  file: 
+  file:
     path: /var/opt/influxdb/meta/id
     state: absent
 
@@ -15,7 +15,7 @@
     state: absent
 
 - name: restart influxdb
-  service: 
+  service:
     name: influxdb
     state: restarted
 
