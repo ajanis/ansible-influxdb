@@ -1,16 +1,27 @@
 ---
-- name: Deploy InfluxDB
-  hosts: influxdb
-  become: True
+- name: "Deploy InfluxDB"
+  hosts:
+    - tick
+    - chronograf
+    - kapacitor
+    - influxdb
   remote_user: root
+  gather_facts: yes
+
   tasks:
-    - include_role:
+    - import_role:
+        name: common
+    - import_role:
+        name: openldap
+      when:  openldap_server_ip is defined and openldap_server_ip != None
+    - import_role:
+        name: ceph-fs
+      when:
+        - shared_storage
+        - storage_backend == "cephfs"
+    - import_role:
         name: influxdb
-      tags:
-        - install
-        - configure
-        - influxdb
-        - verify
-        - stress
-        - demo
-        - prometheus
+      when: "'influxdb' in group_names"
+    - import_role:
+        name: telegraf
+      when: "'telegraf' in group_names"
