@@ -6,21 +6,12 @@
     - "{{ ansible_os_family }}.yml"
 
 
-- include_tasks:
+- import_tasks:
     file: install.yml
-    apply:
-      tags:
-        - influxdb
-        - install
-        - configure
   tags: [influxdb, install, configure]
 
-- include_tasks:
+- import_tasks:
     file: configure.yml
-    apply:
-      tags:
-        - influxdb
-        - configure
   tags: [influxdb, configure]
 
 - name: Start the InfluxDB service
@@ -58,34 +49,19 @@
     - influxdb_start_attempt.failed
   tags: [influxdb, configure]
 
-- include_tasks:
+- import_tasks:
     file: demo.yml
-    apply:
-      tags:
-        - influxdb
-        - demo
   tags: [influxdb, demo]
   when: influxdb_load_sample_data and influxdb_http_auth_enabled == "false" and influxdb_start_service
 
-- include_tasks:
+- import_tasks:
     file: verify.yml
-    apply:
-      tags:
-        - influxdb
-        - verify
   tags: [influxdb, verify]
 
-- include_tasks:
+- import_tasks:
     file: stress.yml
-    apply:
-      tags:
-        - influxdb
-        - stress
   tags: [influxdb, stress]
 
-- include_tasks:
+- import_tasks:
     file: prometheus.yml
-    apply:
-      tags:
-        - prometheus
   tags: [prometheus]
