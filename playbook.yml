@@ -1,13 +1,12 @@
 ---
 - name: "Deploy InfluxDB"
   hosts:
-    - tick
-    - chronograf
-    - kapacitor
     - influxdb
   remote_user: root
   gather_facts: yes
 
+  vars_files:
+    - vault.yml
   tasks:
     - import_role:
         name: common
@@ -25,3 +24,4 @@
     - import_role:
         name: telegraf
       when: "'telegraf' in group_names"
+    - setup:
