@@ -64,4 +64,6 @@
 
 - import_tasks:
     file: prometheus.yml
+  when:
+    prometheus_enabled
   tags: [prometheus]
