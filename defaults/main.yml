@@ -70,7 +70,7 @@ influxdb_configuration_dir: /etc/influxdb
 ## Meta Settings
 influxdb_meta_enabled: "true"
 influxdb_meta_dir: /var/lib/influxdb/meta
-influxdb_meta_hostname: 
+influxdb_meta_hostname:
 influxdb_meta_port: 8088
 influxdb_meta_http_port: 8091
 influxdb_meta_retention_autocreate: "true"
@@ -197,6 +197,7 @@ influxdb_hh_purge_interval: 1h
 
 
 
+prometheus_enabled: False
 
 prometheus_config_dir: "/etc/prometheus"
 prometheus_metrics_path: "/metrics"
