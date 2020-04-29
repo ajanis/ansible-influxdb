@@ -1,12 +1,12 @@
 ---
 python_pkgs:
   - python-pip
+  - python3-pip
 
 influxdb_dependency_pkgs:
   - curl
 
 prometheus_pkgs:
   - prometheus
-  - prometheus-alertmanager
   - prometheus-node-exporter
   - prometheus-pushgateway

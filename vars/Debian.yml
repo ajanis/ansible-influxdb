@@ -1,6 +1,7 @@
 ---
 python_pkgs:
   - python-pip
+  - python3-pip
 
 influxdb_dependency_pkgs:
   - python-httplib2
@@ -10,6 +11,5 @@ influxdb_dependency_pkgs:
 
 prometheus_pkgs:
   - prometheus
-  - prometheus-alertmanager
   - prometheus-node-exporter
   - prometheus-pushgateway
