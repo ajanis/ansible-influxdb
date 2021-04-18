@@ -9,6 +9,8 @@
 - import_tasks:
     file: install.yml
   tags: [influxdb, install, configure]
+  when:
+    - not influx_containerized
 
 - import_tasks:
     file: configure.yml
@@ -20,7 +22,9 @@
     state: restarted
     enabled: yes
   register: influxdb_started
-  when: influxdb_start_service
+  when:
+    - not influx_containerized
+    - influxdb_start_service
   tags: [influxdb, configure]
 
 - name: Verify InfluxDB HTTP service is listening # noqa 503
@@ -28,7 +32,9 @@
     host: "{{ influxdb_bind_hostname | default(\"localhost\", true) }}"
     port: "{{ influxdb_http_port }}"
     delay: 30
-  when: influxdb_started.changed and influxdb_start_service
+  when:
+    - (influxdb_started.changed and influxdb_start_service)
+    - not influx_containerized
   ignore_errors: yes
   register: influxdb_start_attempt
   tags: [influxdb, configure]
@@ -39,6 +45,7 @@
   when:
     - influxdb_start_attempt.failed is defined
     - influxdb_start_attempt.failed
+    - not influx_containerized
   tags: [influxdb, configure]
 
 - name: Ensure InfluxDB started
@@ -47,20 +54,21 @@
   when:
     - influxdb_start_attempt.failed is defined
     - influxdb_start_attempt.failed
+    - not influx_containerized
   tags: [influxdb, configure]
 
-- import_tasks:
-    file: demo.yml
-  tags: [influxdb, demo]
-  when: influxdb_load_sample_data and influxdb_http_auth_enabled == "false" and influxdb_start_service
-
-- import_tasks:
-    file: verify.yml
-  tags: [influxdb, verify]
-
-- import_tasks:
-    file: stress.yml
-  tags: [influxdb, stress]
+#- import_tasks:
+#    file: demo.yml
+#  tags: [influxdb, demo]
+#  when: influxdb_load_sample_data and influxdb_http_auth_enabled == "false" and influxdb_start_service
+#
+#- import_tasks:
+#    file: verify.yml
+#  tags: [influxdb, verify]
+#
+#- import_tasks:
+#    file: stress.yml
+#  tags: [influxdb, stress]
 
 - import_tasks:
     file: prometheus.yml
