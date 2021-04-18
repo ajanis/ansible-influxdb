@@ -1,0 +1,14 @@
+---
+python_pkgs:
+  - python3-pip
+
+influxdb_dependency_pkgs:
+  - python-httplib2
+  - python-apt
+  - curl
+  - apt-transport-https
+
+prometheus_pkgs:
+  - prometheus
+  - prometheus-node-exporter
+  - prometheus-pushgateway
