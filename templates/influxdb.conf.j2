@@ -191,20 +191,9 @@ reporting-disabled = {{ influxdb_disable_reporting }}
 
 ###
 
-{% if influxdb_runtime_version is version('0.11', '>') %}
-### [[collectd]]
-{% else %}
-### [collectd]
-{% endif %}
-###
-### Controls the listener for collectd data.
-###
 
-{% if influxdb_runtime_version is version('0.11', '>') %}
+
 [[collectd]]
-{% else %}
-[collectd]
-{% endif %}
   enabled = {{ influxdb_collectd_enabled }}
   bind-address = ":{{ influxdb_collectd_port }}"
   database = "{{ influxdb_collectd_database }}"
@@ -214,21 +203,8 @@ reporting-disabled = {{ influxdb_disable_reporting }}
   batch-timeout = "{{ influxdb_collectd_batch_timeout }}"
   typesdb = "{{ influxdb_collectd_typesdb }}"
 
-###
-{% if influxdb_runtime_version is version('0.11', '>') %}
-### [[opentsdb]]
-{% else %}
-### [opentsdb]
-{% endif %}
-###
-### Controls the listener for OpenTSDB data.
-###
 
-{% if influxdb_runtime_version is version('0.11', '>') %}
 [[opentsdb]]
-{% else %}
-[opentsdb]
-{% endif %}
   enabled = {{ influxdb_opentsdb_enabled }}
   # bind-address = ":{{ influxdb_opentsdb_port }}"
   # database = "{{ influxdb_opentsdb_database }}"
