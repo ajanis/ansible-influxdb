@@ -1,4 +1,5 @@
 ---
+influx_containerized: False
 # Whether or not the playbook is run locally (changes clustering and testing logic slightly)
 # This should only be set in the Vagrantfile and not modified elsewhere
 is_vagrant: no
@@ -57,7 +58,6 @@ influxdb_sample_measurement_name: random_ints
 influxdb_bind_hostname: ''
 
 influxdb_install_python_client: no
-
 # NOTE: Since Ansible uses Python on the backend, all boolean values are capitalized when being
 # rendered (which is not valid TOML). To get around this, make sure you quote any boolean values
 # (true -> "true") to ensure correct formatting (for template variables).
