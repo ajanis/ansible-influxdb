@@ -94,7 +94,7 @@ influxdb_data_wal_compaction_threshold: 0.5
 influxdb_data_wal_max_series_size: 1048576
 influxdb_data_wal_flush_cold_interval: 5s
 influxdb_data_wal_partition_size_threshold: 20971520
-
+influxdb_cache-max-memory-size: 524288000
 ## Cluster Settings
 influxdb_cluster_shard_writer_timeout: 5s
 influxdb_cluster_force_remote_mapping: "false"
