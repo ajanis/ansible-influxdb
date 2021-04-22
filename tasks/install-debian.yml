@@ -29,7 +29,7 @@
 - name: Install InfluxDB packages [Debian/Ubuntu] # noqa 403
   apt:
     name: influxdb
-    state: latest
+    state: present
     update_cache: yes
     cache_valid_time: 3600
   when: influxdb_install_url is not defined or influxdb_install_url == None
