@@ -57,18 +57,18 @@
     - not influx_containerized
   tags: [influxdb, configure]
 
-#- import_tasks:
-#    file: demo.yml
-#  tags: [influxdb, demo]
-#  when: influxdb_load_sample_data and influxdb_http_auth_enabled == "false" and influxdb_start_service
-#
-#- import_tasks:
-#    file: verify.yml
-#  tags: [influxdb, verify]
-#
-#- import_tasks:
-#    file: stress.yml
-#  tags: [influxdb, stress]
+- import_tasks:
+    file: demo.yml
+  tags: [influxdb, demo]
+  when: influxdb_load_sample_data and influxdb_http_auth_enabled == "false" and influxdb_start_service
+
+- import_tasks:
+    file: verify.yml
+  tags: [influxdb, verify]
+
+- import_tasks:
+    file: stress.yml
+  tags: [influxdb, stress]
 
 - import_tasks:
     file: prometheus.yml
