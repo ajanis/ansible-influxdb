@@ -66,6 +66,11 @@ influxdb_install_python_client: no
 influxdb_disable_reporting: "false"
 
 influxdb_configuration_dir: /etc/influxdb
+## Coordinator
+influxdb_coordinator_write_timeout: "30s"
+influxdb_coordinator_max_concurrent_queries: 0
+influxdb_coordinator_query_timeout: "0s"
+influxdb_coordinator_log_queries_after: "10s"
 
 ## Meta Settings
 influxdb_meta_enabled: "true"
@@ -79,22 +84,39 @@ influxdb_meta_heartbeat_timeout: 1s
 influxdb_meta_leader_lease_timeout: 500ms
 influxdb_meta_commit_timeout: 50ms
 influxdb_meta_cluster_tracing: "false"
-
+influxdb_meta_pprof_enabled: "false"
+influxdb_meta_https_enabled: "false"
+influxdb_meta_https_certificate: /etc/ssl/influxdb.pem
+influxdb_meta_raft_promotion_enabled: "true"
+influxdb_meta_logging_enabled: "false"
+influxdb_meta_lease_duration: "1m"
 ## Data Settings
 influxdb_data_enabled: "true"
 influxdb_data_dir: /var/lib/influxdb/data
 influxdb_data_engine: "tsm1"
-influxdb_data_max_wal_size: 104857600
-influxdb_data_wal_flush_interval: 10m0s
-influxdb_data_wal_partition_flush_delay: 2s
 influxdb_data_wal_dir: /var/lib/influxdb/wal
 influxdb_data_wal_logging_enabled: "true"
-influxdb_data_wal_ready_series_size: 30720
-influxdb_data_wal_compaction_threshold: 0.5
-influxdb_data_wal_max_series_size: 1048576
-influxdb_data_wal_flush_cold_interval: 5s
-influxdb_data_wal_partition_size_threshold: 20971520
-influxdb_cache-max-memory-size: 524288000
+influxdb_data_wal_fsync_delay: "1s"
+influxdb_query_log_enabled: "false"
+influxdb_index_version: "inmem"
+influxdb_max_series_per_database: 0
+influxdb_max_values_per_tag: 0
+#influxdb_index_version: "tsi1"
+#influxdb_max_index_log_file_size: "1m"
+#influxdb_series_id_set_cache_size: 100
+
+
+influxdb_cache_max_memory_size: "2g"
+influxdb_cache_snapshot_memory_size: "500m"
+influxdb_cache_snapshot_write_cold_duration: "10m"
+influxdb_compact_full_write_cold_duration: "4h"
+influxdb_max_concurrent_compactions: 5
+influxdb_compact_throughput: "12m"
+influxdb_compact_throughput_burst: "24m"
+influxdb_max_points_per_block: 0
+influxdb_data_logging_enabled: "false"
+
+
 ## Cluster Settings
 influxdb_cluster_shard_writer_timeout: 5s
 influxdb_cluster_force_remote_mapping: "false"
@@ -107,8 +129,8 @@ influxdb_retention_check_interval: 30m0s
 
 # Shard-Precreation Settings
 influxdb_shard_pre_enabled: "true"
-influxdb_shard_pre_check_interval: 10m0s
-influxdb_shard_pre_advance_period: 30m0s
+influxdb_shard_pre_check_interval: "1m"
+influxdb_shard_pre_advance_period: "30m"
 
 ## Admin Settings
 influxdb_admin_enabled: "true"
@@ -127,10 +149,15 @@ influxdb_http_port: 8086
 influxdb_http_auth_enabled: "false"
 influxdb_http_log_enabled: "true"
 influxdb_http_write_tracing: "false"
-influxdb_http_pprof_enabled: "false"
+influxdb_http_pprof_enabled: "true"
+influxdb_http_pprof_auth_enabled: "false"
 influxdb_http_https_enabled: "false"
 influxdb_http_https_certificate: /etc/ssl/influxdb.pem
-
+influxdb_access_log_status_filters:
+  - 5xx
+  - 4xx
+influxdb_max_enqueued_write_limit: 0
+influxdb_enqueued_write_timeout: 0
 ## Graphite Settings
 influxdb_graphite_enabled: "false"
 influxdb_graphite_port: 2003
