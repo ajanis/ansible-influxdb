@@ -156,6 +156,7 @@ influxdb_http_https_certificate: /etc/ssl/influxdb.pem
 influxdb_access_log_status_filters:
   - 5xx
   - 4xx
+  - 2xx
 influxdb_max_enqueued_write_limit: 0
 influxdb_enqueued_write_timeout: 0
 ## Graphite Settings
